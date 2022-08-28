@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from "react";
+import Header from './Components/Header/Header';
+import { Route, Routes } from 'react-router-dom';
+import ProductsContainer from './Components/Container/ProductsContainer';
+import ProductDetail from './Components/Container/ProductDetail';
+import './Components/Container/styles.css'
+
 
 function App() {
+  const [query, setQuery] = useState("")
+
+  const updateQueryFunction = (query) => setQuery(query)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Header updateQueryFunction={updateQueryFunction} />
+      <Routes>
+        <Route path='/items'  element={<ProductsContainer query={query}/>} />
+        <Route path='/item/:id' element={<ProductDetail />} />
+      </Routes>
+
+    </>
   );
 }
 
